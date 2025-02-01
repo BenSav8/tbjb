@@ -1,12 +1,3 @@
-async function checkIP() {
-	ip = await (await fetch('https://api.ipify.org')).text()
-	blacklist = ['176.59.172.232']
-	if(blacklist.includes(ip)) {
-		document.write(`<title>nope</title><h1>you can't use trollbox</h1><p>Please get off the internet and go outside</p>`)
-	}
-}
-checkIP()
-
 function md_applyrule(rule, e) {
 	e.style.color = rule;
 }
@@ -62,8 +53,12 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
     var trollbox_nick_btn = document.getElementById('trollbox_nick_btn');
     var trollbox_input = document.getElementById('trollbox_input');
 
-    //var socket = io();
-    var socket = io('//www.windows93.net:8086');
+    let socket;
+    if (window.location.protocol === "https:") {
+    	socket = io('https://www.windows93.net:8088');
+    } else {
+	socket = io('https://www.windows93.net:8081');
+    }
 
     var pseudo = $store.get('.config/trollbox/_nick') || '';
     var color = $store.get('.config/trollbox/color') || '';
