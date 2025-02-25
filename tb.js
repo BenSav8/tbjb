@@ -593,7 +593,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
           data.msg = data.msg.replace('/kao', faces[parseInt(Math.random()*faces.length)])
       }
 
-    if ((data.msg)&&(data.msg.startsWith('data:image/'))) {     
+    if ((data.msg)&&(data.msg.startsWith('data:image/')&& !(data.msg.startsWith('data:image/svg'))) {     
        if ( imgShow ) {   
           if(data.msg.indexOf("&#62")!=-1){return};
           if(data.msg.indexOf("&#39")!=-1){return};
