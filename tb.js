@@ -120,7 +120,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
 
     function setPseudo (txt) {
       pseudo = txt;
-      trollbox_nick_btn.innerHTML = pseudo;
+      trollbox_nick_btn.innerText = pseudo;
       $store.set('.config/trollbox/_nick', pseudo);
       socket.emit('user joined', pseudo, color, style, pass);
     }
