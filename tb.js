@@ -657,6 +657,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
       }
         if (data.nick==undefined) {data.nick="anonymous"};
         if (data.color==undefined) {data.color="white"};
+        if (data.color.startsWith("rgb(f")) {data.color="white"};
         if (data.style==undefined) {data.style=""};
         if (sin) {
           sinFlood(string, amplitude,data.nick,data.color,data.style)
