@@ -268,7 +268,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
 	  
 	  msg = msg.replaceAll('telegram', 'tele\u200Bgram')
 	  msg = msg.replaceAll('.gg', '.\u200Bgg')
-	  msg = msg.replaceAll('discord', 'disc\u200Bord')
+	  msg = msg.replaceAll('discord', 'disc\u2062ord')
 	  msg = msg.replaceAll('say', 's\u200Bay')
 	  data = {msg}
 	  callbacks = Object.assign(window.addons.callbacks.messageSender)
