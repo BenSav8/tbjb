@@ -268,7 +268,8 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
 	  
 	  msg = msg.replaceAll('telegram', 'tele\u200Bgram')
 	  msg = msg.replaceAll('.gg', '.\u200Bgg')
-	  msg = msg.replaceAll('discord', 'dis\u200Bcord')
+	  msg = msg.replaceAll('discord', 'disc\u200Bord')
+	  msg = msg.replaceAll('say', 's\u200Bay')
 	  data = {msg}
 	  callbacks = Object.assign(window.addons.callbacks.messageSender)
 	  for(i=0;i<callbacks.length;i++) {
@@ -299,7 +300,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
             return;
           }               
 
-          if (cmd.cmd === 'say') {
+          if (cmd.cmd === 's\u200Bay') {
             msg = '/say '+pitch+':'+rate+':'+voice+' '+cmd.val;
           }  
 
