@@ -93,11 +93,11 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
       $("#trollbox_infos div span").first().before("<span style='float: left;margin-right: 4px;'>👑 </span>");
       
       $( "#trollbox_infos div" ).contextmenu(function() {
-        sendMsg('/block '+$(this).children('span:last-child').text())
+        sendMsg('/block '+$(this).data('home'))
         return false
       });
       $( "#trollbox_infos div" ).click(function() {
-        sendMsg('/unblock '+$(this).children('span:last-child').text())
+        sendMsg('/unblock '+$(this).data('home'))
         return false
       });   
     }
@@ -757,6 +757,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
         if (data.hasOwnProperty(key)) {
           var div = document.createElement('div');
           div.innerHTML = printNick(data[key]);
+		  div.dataset.home = data[key].home
           frag.appendChild(div);
         }
       }
