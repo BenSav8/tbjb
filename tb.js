@@ -1177,6 +1177,8 @@ tbjbstyle.textContent = `
 	overflow: visible;
 	text-overflow: clip;
 	white-space: nowrap;
+	text-align: left;
+	display: inline;
 }
 #trollbox_infos {
 	overflow-x: auto;
