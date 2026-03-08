@@ -79,7 +79,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
     var say;
 
     var users=[];
-    var uudata;
+    var userData;
 
     if (pseudo) {
       setPseudo(pseudo);
@@ -225,6 +225,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
       "                                          \\/            \\/                         \n"+
       "+–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––--+\n"+
       "| COMMANDS:                                                                         |\n"+
+      "| /help, /h              list all commands                                          |\n"+
       "| /color htmlColor       eg: /color #C3FF00                                         |\n"+
       "| /sin text period       eg: /sin # 50                                              |\n"+
       "| /sin off               disable /sin                                               |\n"+
@@ -252,8 +253,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
       "| /wrap [text]           wrap in flourish                                           |\n"+
       "| /mess [text]           useless                                                    |\n"+
       "| /ascii imageUrl        ascii art converter                                        |\n"+
-      "| /who                   list users by [home]                                       |\n"+
-      "| /o                     shortcut for /who                                          |\n"+
+      "| /who, /w, /o           list users by [home]                                       |\n"+
       "| /block [home]          block user (or right click user's name, on the right)      |\n"+
       "| /block                 list all blocked homes                                     |\n"+
       "| /unblock [home]        unblock user (or left click user's name, on the right)     |\n"+
@@ -458,12 +458,12 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
             printMsg(dada);
            trollbox_infos.innerHTML = ''
            var frag = document.createDocumentFragment()
-			  console.log(uudata)
-           for (var key in uudata) {
-             if (uudata.hasOwnProperty(key)) {
+			  console.log(userData)
+           for (var key in userData) {
+             if (userData.hasOwnProperty(key)) {
                var div = document.createElement('div');
-               div.innerHTML = printNick(uudata[key]);
-	     	  div.dataset.home = uudata[key].home
+               div.innerHTML = printNick(userData[key]);
+	     	  div.dataset.home = userData[key].home
                frag.appendChild(div);
              }
            }
@@ -474,7 +474,9 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
 
           if (msg.startsWith('/unblock ')) {       
             var user = msg.slice(9).trim();
-            blocked.splice( blocked.indexOf(user), 1 );
+			if (blocked.includes(user)) {
+              blocked.splice( blocked.indexOf(user), 1 );
+			}
             blocked=uniq(blocked);
             $store.set('.config/trollbox/blocked', blocked);
             userMsg = 'User is now unblocked';
@@ -482,11 +484,11 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
             printMsg(dada);
             trollbox_infos.innerHTML = ''
             var frag = document.createDocumentFragment()
-            for (var key in uudata) {
-             if (uudata.hasOwnProperty(key)) {
+            for (var key in userData) {
+             if (userData.hasOwnProperty(key)) {
                var div = document.createElement('div');
-               div.innerHTML = printNick(uudata[key]);
-		       div.dataset.home = uudata[key].home
+               div.innerHTML = printNick(userData[key]);
+		       div.dataset.home = userData[key].home
                frag.appendChild(div);
              }
            }
@@ -546,7 +548,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
             return;           
         }
 
-        if (msg=='/help') {
+        if (msg=='/help' || msg=='/h') {
           dada = { date: Date.now(), nick: "~", color: "white", style: "opacity: 0.7;", home: 'local', msg: helpMsg };
           printMsg(dada);
           return;
@@ -565,8 +567,42 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
           messageStyle="normal";
           return;
         }
-
-        if (msg=='/unblock') {
+      if (msg.trim() == '/who' || msg.trim() == '/w' || msg.trim() == '/o') {
+        let output = 'Your Home is: ' + userData[socket.id].home;
+        output = output + '\nOnline Users:\n';
+        let tempList = {};
+        for (let key in userData) {
+          const user = userData[key];
+          if (!tempList[user.home]) {
+            tempList[user.home] = [user];
+          } else {
+            tempList[user.home].push(user);
+          }
+        }
+        for (let home in tempList) {
+          const uniqueUsers = [];
+          const seen = new Set();
+          for (const user of tempList[home]) {
+            if (!seen.has(user.nick)) {
+              seen.add(user.nick);
+              uniqueUsers.push(user);
+            }
+          }
+          const formattedNicks = uniqueUsers.map(u => printNick(u)).join(', ') + '.';
+          output += ` – ${home}: ${formattedNicks}\n`;
+        }
+        const dada = {
+          date: Date.now(),
+          nick: "~",
+          color: "white",
+          style: "opacity: 0.7;",
+          home: 'local',
+          msg: output
+        };
+        printMsg(dada);
+        return;
+      }
+        if (msg.trim()=='/unblock') {
           blocked=[];
           $store.set('.config/trollbox/blocked', blocked);
           userMsg = 'Block list cleared.';
@@ -778,7 +814,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
 
     socket.on('update users', function (data) {
       users=[];
-		uudata=data
+		userData=data
       for (var key in data) {
         if (!users[data[key].home]) {
           users[data[key].home]=[he.decode(data[key].nick)]
