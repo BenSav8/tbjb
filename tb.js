@@ -458,7 +458,8 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
             printMsg(dada);
            trollbox_infos.innerHTML = ''
            var frag = document.createDocumentFragment()
-           for (var key in data) {
+			  console.log(uudata)
+           for (var key in uudata) {
              if (uudata.hasOwnProperty(key)) {
                var div = document.createElement('div');
                div.innerHTML = printNick(uudata[key]);
