@@ -1172,7 +1172,7 @@ tbjbstyle.textContent = `
 	cursor: pointer;
 }
 .trollbox_msg .trollbox_nick,
-.trollbox_infos .trollbox_nick {
+#trollbox_infos .trollbox_nick {
 	max-width: none;
 	overflow: visible;
 	text-overflow: clip;
