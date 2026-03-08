@@ -949,12 +949,14 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
 		let finalMsg = 'Your current room is: ' + printNick(currentRoom) + '.\nOnline Rooms:'
 		for (const r in roomInfos) {
 			room = roomInfos[r]
+			room.nick = r
           finalMsg += '\n<details><summary>' + printNick(room) +
             ' (' + room.users.length + ')</summary>';
+			let finalUserlist;
           for (const user of room.users) {
-            finalMsg += '\n&nbsp;&nbsp;' + printNick(user);
+            finalUserlist += '\n&nbsp;&nbsp;' + printNick(user);
           }
-	    finalMsg += "</details>"
+	    finalMsg += finalUserlist.replace(/^\n/, '') + "</details>"
         }
 		printMsg({
 			date: data[0].date,
@@ -1226,6 +1228,12 @@ tbjbstyle.textContent = `
 }
 #trollbox_infos {
 	overflow-x: auto;
+}
+summary::before {
+	content: "▶ ";
+}
+details[open] summary::before {
+	content: "▼ ";
 }
 `;
 document.head.appendChild(tbjbstyle);
