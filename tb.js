@@ -93,11 +93,11 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
       $("#trollbox_infos div span").first().before("<span style='float: left;margin-right: 4px;'>👑 </span>");
       
       $( "#trollbox_infos div" ).contextmenu(function() {
-        sendMsg('/block '+$(this).dataset.home)
+        sendMsg('/block '+$(this)[0].dataset.home)
         return false
       });
       $( "#trollbox_infos div" ).click(function() {
-        sendMsg('/unblock '+$(this).dataset.home)
+        sendMsg('/unblock '+$(this)[0].dataset.home)
         return false
       });   
     }
