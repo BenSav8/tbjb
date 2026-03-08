@@ -199,7 +199,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
         var test = (/image/).test(data.style);
        
         if (test) {  
-          name= str+'<span style='margin-right: 4px;margin-top: 1px;'>❌' + data.nick + '</span>';
+          name= str+"<span style='margin-right: 4px;margin-top: 1px;'>❌" + data.nick + '</span>';
           if (data.nick==pseudo) {
              name = str+'<span class="trollbox_nick" style="color:' + data.color.split(";")[0]+';">' + data.nick + '</span>';  
           };
