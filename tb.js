@@ -79,6 +79,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
     var say;
 
     var users=[];
+    var uudata;
 
     if (pseudo) {
       setPseudo(pseudo);
@@ -243,7 +244,8 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
       "| /rate 5.0              set speech rate (from 0.1 to 10.0) (FF)                    |\n";
 
       if (voices.length>0) {
-        helpMsg=helpMsg+"| /voice 3               " + "set speech voice (from 0 to "+voices.length+", may bypass pitch and rate)" + " ".repeat(59 - ("set speech voice (from 0 to "+voices.length+", may bypass pitch and rate)").length) + "|\n";
+		  var desc = "set speech voice (from 0 to " + voices.length + ", may bypass pitch and rate)"
+        helpMsg=helpMsg+"| /voice 3               " + desc + " ".repeat(59 - desc.length) + "|\n";
       };
       helpMsg=helpMsg+"| /zalgo [text]          he comes                                                   |\n"+
       "| /vapor [text]          aesthetics                                                 |\n"+
@@ -457,10 +459,10 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
            trollbox_infos.innerHTML = ''
            var frag = document.createDocumentFragment()
            for (var key in data) {
-             if (data.hasOwnProperty(key)) {
+             if (uudata.hasOwnProperty(key)) {
                var div = document.createElement('div');
-               div.innerHTML = printNick(data[key]);
-	     	  div.dataset.home = data[key].home
+               div.innerHTML = printNick(uudata[key]);
+	     	  div.dataset.home = uudata[key].home
                frag.appendChild(div);
              }
            }
@@ -479,11 +481,11 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
             printMsg(dada);
             trollbox_infos.innerHTML = ''
             var frag = document.createDocumentFragment()
-            for (var key in data) {
-             if (data.hasOwnProperty(key)) {
+            for (var key in uudata) {
+             if (uudata.hasOwnProperty(key)) {
                var div = document.createElement('div');
-               div.innerHTML = printNick(data[key]);
-		       div.dataset.home = data[key].home
+               div.innerHTML = printNick(uudata[key]);
+		       div.dataset.home = uudata[key].home
                frag.appendChild(div);
              }
            }
@@ -775,6 +777,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
 
     socket.on('update users', function (data) {
       users=[];
+		uudata=data
       for (var key in data) {
         if (!users[data[key].home]) {
           users[data[key].home]=[he.decode(data[key].nick)]
