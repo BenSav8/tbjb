@@ -458,7 +458,6 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
             printMsg(dada);
            trollbox_infos.innerHTML = ''
            var frag = document.createDocumentFragment()
-			  console.log(userData)
            for (var key in userData) {
              if (userData.hasOwnProperty(key)) {
                var div = document.createElement('div');
@@ -955,7 +954,6 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
 			let finalUserlist = '';
           for (const user of room.users) {
             finalUserlist += '<div>&nbsp;&nbsp;' + printNick(user) + '</div>';
-			  console.log(finalUserlist)
           }
 	    finalMsg += finalUserlist + "</details>"
         }
