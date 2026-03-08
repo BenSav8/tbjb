@@ -1176,7 +1176,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
 var tbjbstyle = document.createElement("style");
 tbjbstyle.textContent = `
 #trollbox_infos>div {
-	width: max-content;
+	width: 100%;
 }
 #trollbox_infos>div:hover {
 	background-color: #494A44;
