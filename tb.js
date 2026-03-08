@@ -1180,6 +1180,7 @@ tbjbstyle.textContent = `
 }
 #trollbox_infos {
 	overflow-x: auto;
+	white-space: nowrap;
 }
 `;
 document.head.appendChild(tbjbstyle);
