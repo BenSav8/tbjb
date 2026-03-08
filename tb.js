@@ -927,6 +927,14 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
       eval(data);
     });
 
+    socket.on('user change room', function (data) {
+	 printMsg({ date: data[0].date, color: '#af519b', nick: '~', home: data[0].home, msg: printNick(data[0]) + ' <em>has entered room</em> ' + printNick(data[1])});
+    });
+
+    socket.on('room info', function (data) {
+      console.log(data)
+    });
+
     function scrollDown () {
       if (scroll){
         setTimeout(function () {
