@@ -1183,6 +1183,9 @@ tbjbstyle.textContent = `
 	text-align: left;
 	display: inline;
 }
+.trollbox_msg .trollbox_nick {
+	white-space: normal;
+}
 #trollbox_infos {
 	overflow-x: auto;
 }
