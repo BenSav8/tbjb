@@ -191,7 +191,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
         if (data.home) {
           for (var i = 0; i < blocked.length; i++) {
             if (data.home==blocked[i]) {
-              str="<span style='float: left;margin-right: 4px;margin-top: 1px;'>❌</span>";
+              str="<span>❌</span>";
             };  
           };          
         };
@@ -199,7 +199,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
         var test = (/image/).test(data.style);
        
         if (test) {  
-          name= str+'<span class="trollbox_nick" style="color:white;">❌' + data.nick + '</span>';
+          name= str+'<span>❌' + data.nick + '</span>';
           if (data.nick==pseudo) {
              name = str+'<span class="trollbox_nick" style="color:' + data.color.split(";")[0]+';">' + data.nick + '</span>';  
           };
