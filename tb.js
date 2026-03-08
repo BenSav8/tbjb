@@ -947,7 +947,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
 		const currentRoom = data[0];
         const roomInfos = data[1];
 		let finalMsg = 'Your current room is: ' + printNick(currentRoom) + '.\nOnline Rooms:'
-		for (const room of Object.values(roomInfos)) {
+		for (const room in roomInfos) {
           finalMsg += '\n<details><summary>' + printNick(room) +
             ' (' + room.users.length + ')</summary>';
           for (const user of room.users) {
