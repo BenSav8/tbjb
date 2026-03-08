@@ -222,7 +222,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
       "   |    |   |  | \\(  <_> )  |_|  |_|    |   (  <_> >    <                           \n"+
       "   |____|   |__|   \\____/|____/____/______  /\\____/__/\\_ \\ (v2.1)                \n"+
       "                                          \\/            \\/                         \n"+
-      "––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––--–\n"+
+      "+–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––--+\n"+
       "| COMMANDS:                                                                         |\n"+
       "| /color htmlColor       eg: /color #C3FF00                                         |\n"+
       "| /sin text period       eg: /sin # 50                                              |\n"+
@@ -243,7 +243,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
       "| /rate 5.0              set speech rate (from 0.1 to 10.0) (FF)                    |\n";
 
       if (voices.length>0) {
-        helpMsg=helpMsg+"| /voice 3               set speech voice (from 0 to "+voices.length+", may bypass pitch and rate) |\n";
+        helpMsg=helpMsg+"| /voice 3               " + "set speech voice (from 0 to "+voices.length+", may bypass pitch and rate)".padEnd(59, " ") + "|\n";
       };
       helpMsg=helpMsg+"| /zalgo [text]          he comes                                                   |\n"+
       "| /vapor [text]          aesthetics                                                 |\n"+
@@ -253,7 +253,8 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
       "| /who                   list users by [home]                                       |\n"+
       "| /o                     shortcut for /who                                          |\n"+
       "| /block [home]          block user (or right click user's name, on the right)      |\n"+
-      "| /unblock [home]        unblock user (or click user's name, on the right)          |\n"+
+      "| /block                 list all blocked homes                                     |\n"+
+      "| /unblock [home]        unblock user (or left click user's name, on the right)     |\n"+
       "| /unblock               unblock every users                                        |\n"+
       "| /room                  display room infos                                         |\n"+
       "| /room [room name]      enter [room name]                                          |\n"+
@@ -263,7 +264,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
       "| /clear                 clear teh chat                                             |\n"+
       "| /store                 open teh tbjb store                                        |\n"+
       "| Suggestions?           contact@windows93.net                                      |\n"+
-      "–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––\n";
+      "+–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––+\n";
       if (typeof msg !== 'string') return;
 	  
 	  msg = msg.replaceAll('telegram', 'tele\u200Bgram')
@@ -453,6 +454,17 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
             userMsg = 'User is now blocked.';
             dada = { date: Date.now(), nick: "~", color: "white", style: "opacity: 0.7;", home: 'local', msg: userMsg };
             printMsg(dada);
+           trollbox_infos.innerHTML = ''
+           var frag = document.createDocumentFragment()
+           for (var key in data) {
+             if (data.hasOwnProperty(key)) {
+               var div = document.createElement('div');
+               div.innerHTML = printNick(data[key]);
+	     	  div.dataset.home = data[key].home
+               frag.appendChild(div);
+             }
+           }
+           trollbox_infos.appendChild(frag);
 			chatKing()
             return;
           }
@@ -465,6 +477,17 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
             userMsg = 'User is now unblocked';
             dada = { date: Date.now(), nick: "~", color: "white", style: "opacity: 0.7;", home: 'local', msg: userMsg };
             printMsg(dada);
+            trollbox_infos.innerHTML = ''
+            var frag = document.createDocumentFragment()
+            for (var key in data) {
+             if (data.hasOwnProperty(key)) {
+               var div = document.createElement('div');
+               div.innerHTML = printNick(data[key]);
+		       div.dataset.home = data[key].home
+               frag.appendChild(div);
+             }
+           }
+           trollbox_infos.appendChild(frag);
 			chatKing()
             return;
           }
@@ -548,6 +571,25 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
           printMsg(dada);
           return;
         }
+		  
+      if (msg.trim() == '/block') {
+        let userMsg = 'Banned Homes:\n';
+        for (let i = 0; i < blocked.length; i++) {
+          userMsg = userMsg + blocked[i] + "\n"
+        }
+        if (blocked.length == 0) { userMsg = 'Banned Homes: none' }
+        let dada = {
+          date: Date.now(),
+          nick: "~",
+          color: "white",
+          style: "opacity: 0.7;",
+          home: 'local',
+          msg: userMsg
+        };
+        printMsg(dada);
+        updateUsers(userData);
+        return;
+      }
 
         if(msg=='/shrug'){msg = '¯\\_(ツ)_/¯'}
 
