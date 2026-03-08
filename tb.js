@@ -1165,14 +1165,20 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
       }
     }
 
-var hoverinfos = document.createElement("style");
-hoverinfos.textContent = `
+var tbjbstyle = document.createElement("style");
+tbjbstyle.textContent = `
 #trollbox_infos>div:hover {
 	background-color: #494A44;
 	cursor: pointer;
 }
+.trollbox_msg .trollbox_nick {
+	max-width: none;
+	overflow: visible;
+	text-overflow: clip;
+	white-space: normal;
+}
 `;
-document.head.appendChild(hoverinfos);
+document.head.appendChild(tbjbstyle);
 
 /* inject addons */
 Object.keys(localStorage).filter(e=>e.startsWith('.config/trollbox/tbjb_addons/')&&e.endsWith('.js')).forEach(e=>{try{eval(localStorage.getItem(e))}catch{alert(`Error loading addon: ${e.slice('.config/trollbox/tbjb_addons/'.length,-3)}`)}})
