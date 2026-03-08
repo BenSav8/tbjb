@@ -447,13 +447,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
           }    
           if (msg.startsWith('/block ')) {        
             var user = msg.slice(7).trim();
-            for (var key in users) {
-              for (var i = 0; i < users[key].length; i++) {
-                if (users[key][i]==user) {
-                  blocked.push(key);
-                };
-              };
-            }
+            blocked.push(user);
             blocked=uniq(blocked);
             $store.set('.config/trollbox/blocked', blocked);
             userMsg = 'User is now blocked.';
@@ -464,13 +458,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
 
           if (msg.startsWith('/unblock ')) {       
             var user = msg.slice(9).trim();
-            for (var key in users) {
-              for (var i = 0; i < users[key].length; i++) {
-                if (users[key][i]==user) {
-                    blocked.splice( blocked.indexOf(key), 1 );
-                };
-              };
-            }
+            blocked.splice( blocked.indexOf(user), 1 );
             blocked=uniq(blocked);
             $store.set('.config/trollbox/blocked', blocked);
             userMsg = 'User is now unblocked';
