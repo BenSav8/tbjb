@@ -453,6 +453,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
             userMsg = 'User is now blocked.';
             dada = { date: Date.now(), nick: "~", color: "white", style: "opacity: 0.7;", home: 'local', msg: userMsg };
             printMsg(dada);
+			chatKing()
             return;
           }
 
@@ -464,6 +465,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
             userMsg = 'User is now unblocked';
             dada = { date: Date.now(), nick: "~", color: "white", style: "opacity: 0.7;", home: 'local', msg: userMsg };
             printMsg(dada);
+			chatKing()
             return;
           }
 
@@ -1081,6 +1083,14 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
       }
     }
 
+var hoverinfos = document.createElement("style");
+hoverinfos.textContent = `
+#trollbox_infos>div:hover {
+	background-color: #494A44;
+	cursor: pointer;
+}
+`;
+document.head.appendChild(hoverinfos);
 
 /* inject addons */
 Object.keys(localStorage).filter(e=>e.startsWith('.config/trollbox/tbjb_addons/')&&e.endsWith('.js')).forEach(e=>{try{eval(localStorage.getItem(e))}catch{alert(`Error loading addon: ${e.slice('.config/trollbox/tbjb_addons/'.length,-3)}`)}})
