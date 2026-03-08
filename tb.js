@@ -91,7 +91,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
 
     function chatKing(){
       king = $("#trollbox_infos div span").first().html();
-      $("#trollbox_infos div span").first().before("<span style='float: left;margin-right: 4px;'>👑 </span>");
+      $("#trollbox_infos div span").first().before("<span style='margin-right: 4px;'>👑 </span>");
       
       $( "#trollbox_infos div" ).contextmenu(function() {
         sendMsg('/block '+$(this).data('home'))
@@ -191,7 +191,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
         if (data.home) {
           for (var i = 0; i < blocked.length; i++) {
             if (data.home==blocked[i]) {
-              str="<span>❌</span>";
+              str="<span style='margin-right: 4px;margin-top: 1px;'>❌</span>";
             };  
           };          
         };
@@ -199,7 +199,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
         var test = (/image/).test(data.style);
        
         if (test) {  
-          name= str+'<span>❌' + data.nick + '</span>';
+          name= str+'<span style='margin-right: 4px;margin-top: 1px;'>❌' + data.nick + '</span>';
           if (data.nick==pseudo) {
              name = str+'<span class="trollbox_nick" style="color:' + data.color.split(";")[0]+';">' + data.nick + '</span>';  
           };
