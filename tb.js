@@ -91,7 +91,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
 
     function chatKing(){
       king = $("#trollbox_infos div span").first().html();
-      $("#trollbox_infos div span").first().before("<span style='margin-right: 4px;'>👑 </span>");
+      $("#trollbox_infos div span").first().before("<span style='margin-right: 4px;'>👑</span>");
       
       $( "#trollbox_infos div" ).contextmenu(function() {
         sendMsg('/block '+$(this).data('home'))
@@ -608,6 +608,18 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
           userMsg = 'Block list cleared.';
           dada = { date: Date.now(), nick: "~", color: "white", style: "opacity: 0.7;", home: 'local', msg: userMsg };
           printMsg(dada);
+            trollbox_infos.innerHTML = ''
+            var frag = document.createDocumentFragment()
+            for (var key in userData) {
+             if (userData.hasOwnProperty(key)) {
+               var div = document.createElement('div');
+               div.innerHTML = printNick(userData[key]);
+		       div.dataset.home = userData[key].home
+               frag.appendChild(div);
+             }
+           }
+           trollbox_infos.appendChild(frag);
+			chatKing()
           return;
         }
 		  
@@ -932,7 +944,24 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
     });
 
     socket.on('room info', function (data) {
-      console.log(data)
+		const currentRoom = data[0];
+        const roomInfos = data[1];
+		let finalMsg = 'Your current room is: ' + printNick(currentRoom) + '.\nOnline Rooms:'
+		for (const room of roomInfos) {
+          finalMsg += '\n<details><summary>' + printNick(room) +
+            ' (' + room.users.length + ')</summary>';
+          for (const user of room.users) {
+            finalMsg += '\n&nbsp;&nbsp;' + printNick(user);
+          }
+	    finalMsg += "</details>"
+        }
+		printMsg({
+			date: data[0].date,
+			color: 'white',
+			nick: '~',
+			home: "local",
+			msg: finalMsg
+		});
     });
 
     function scrollDown () {
