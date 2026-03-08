@@ -1171,7 +1171,8 @@ tbjbstyle.textContent = `
 	background-color: #494A44;
 	cursor: pointer;
 }
-.trollbox_msg .trollbox_nick {
+.trollbox_msg .trollbox_nick,
+.trollbox_infos .trollbox_nick {
 	max-width: none;
 	overflow: visible;
 	text-overflow: clip;
