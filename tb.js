@@ -954,10 +954,10 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
             ' (' + room.users.length + ')</summary>';
 			let finalUserlist = '';
           for (const user of room.users) {
-            finalUserlist += '<br>&nbsp;&nbsp;' + printNick(user);
+            finalUserlist += '<div>&nbsp;&nbsp;' + printNick(user) + '</div>';
 			  console.log(finalUserlist)
           }
-	    finalMsg += finalUserlist.replace(/^\n/, '') + "</details>"
+	    finalMsg += finalUserlist + "</details>"
         }
 		printMsg({
 			date: data[0].date,
