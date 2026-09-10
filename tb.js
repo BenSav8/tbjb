@@ -246,7 +246,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
 
       if (voices.length>0) {
 		  var desc = "set speech voice (from 0 to " + voices.length + ", may bypass pitch and rate)"
-        helpMsg=helpMsg+"| /voice 3               " + desc + " ".repeat(59 - desc.length) + "|\n";
+        helpMsg=helpMsg+"| /voice 3               " + desc + " ".repeat(59 - (Math.max(desc.length, 0)) + "|\n";
       };
       helpMsg=helpMsg+"| /zalgo [text]          he comes                                                   |\n"+
       "| /vapor [text]          aesthetics                                                 |\n"+
