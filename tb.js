@@ -949,7 +949,6 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
 		for (const r in roomInfos) {
 			let room = roomInfos[r]
 			room.nick = room.name
-			console.log(room)
 			room.date = Date.now()
           finalMsg += '<details><summary>' + printNick(room) +
             ' (' + room.users.length + ')</summary>';
@@ -960,7 +959,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
 	    finalMsg += finalUserlist + "</details>"
         }
 		printMsg({
-			date: data[0].date,
+			date: Date.now(),
 			color: 'white',
 			nick: '~',
 			home: "local",
