@@ -945,7 +945,7 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
     socket.on('room info', function (data) {
 		const currentRoom = data[0];
         const roomInfos = data[1];
-		let finalMsg = 'Your current room is: ' + printNick(currentRoom) + '.\nOnline Rooms:\n'
+		let finalMsg = 'Your current room is: ' + currentRoom + '.\nOnline Rooms:\n'
 		for (const r in roomInfos) {
 			let room = roomInfos[r]
 			room.nick = r
