@@ -949,6 +949,8 @@ var trollbox_scroll = document.getElementById('trollbox_scroll');
 		for (const r in roomInfos) {
 			let room = roomInfos[r]
 			room.nick = room.name
+			console.log(room)
+			room.date = Date.now()
           finalMsg += '<details><summary>' + printNick(room) +
             ' (' + room.users.length + ')</summary>';
 			let finalUserlist = '';
